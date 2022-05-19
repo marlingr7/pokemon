@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { getData } from "../services/getData";
+import { useDispatch, useSelector } from "react-redux";
+
+import { resolveGetData } from "../actions/actions";
 import { Character } from "./Character";
 
 export const ShowScreen = ({ field, name }) => {
-  const [character, setCharacter] = useState({
-    id: 0,
-    name: "",
-    pokemons: [],
-  });
+
+  const dispatch = useDispatch();
+
+  const character = useSelector((state) => state.getData.allField);
 
   useEffect(() => {
-    getData(field, name).then((dat) => {
-      setCharacter(dat);
-    });
+    dispatch(resolveGetData(field, name));
   }, [name]);
 
   return (
@@ -24,6 +23,7 @@ export const ShowScreen = ({ field, name }) => {
       <div className="characterContainer ">
         {character.pokemons.map((item) => (
           <Character key={item.pokemon.url} character={item.pokemon} />
+          
         ))}
       </div>
     </div>

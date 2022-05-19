@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getData } from "../services/getData";
+import { resolveGetData } from "../actions/actions";
 
 export const Form = ({ field, setField, setName }) => {
-  const [data, setData] = useState([]);
   const [disabled, setDisabled] = useState(true);
-
-  useEffect(() => {
-    getData(field, "?limit=1200").then((dat) => {
-      setData(dat);
-    });
-  }, [field]);
 
   const fieldOptions = [
     { value: "type", label: "Type" },
     { value: "ability", label: "Ability" },
   ];
+
+  const dispatch = useDispatch();
+
+  const data = useSelector((state) => state.getData.options);
+
+  useEffect(() => {
+    dispatch(resolveGetData(field, "?limit=1200"));
+  }, [field]);
 
   const handleFieldChange = (e) => {
     setField(e.value);

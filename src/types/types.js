@@ -1,4 +1,5 @@
 export const types = {
-  ability: "Abilities",
-  type: "Types",
+  allFields: '[SEARCH] All Fields',
+  byField: '[SEARCH] By Field',
+
 };

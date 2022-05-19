@@ -15,8 +15,15 @@ export const Character = ({ character }) => {
   });
 
   useEffect(() => {
-    getData("pokemon", name).then((dat) => {
-      setPokemon(dat);
+    getData("pokemon", name).then((data) => {
+      setPokemon({
+        id: data.id,
+        imgUrl: data.sprites.front_default,
+        baseExperience: data.base_experience,
+        weight: data.weight,
+        height: data.height,
+        order: data.order,
+      });
     });
   }, [url]);
 

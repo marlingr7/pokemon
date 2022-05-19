@@ -13,31 +13,7 @@ export const getData = async (field, name) => {
     }
 
     const data = await res.json();
-
-    if (name.includes("?")) {
-      const result = data.results.map((res) => {
-        return {
-          value: res.name,
-          label: res.name,
-        };
-      });
-      return result;
-    } else if (field === "pokemon") {
-      return {
-        id: data.id,
-        imgUrl: data.sprites.front_default,
-        baseExperience: data.base_experience,
-        weight: data.weight,
-        height: data.height,
-        order: data.order,
-      };
-    } else {
-      return {
-        id: data.id,
-        name: data.name,
-        pokemons: data.pokemon,
-      };
-    }
+    return data;
   } catch (error) {
     return console.log(error);
   }
